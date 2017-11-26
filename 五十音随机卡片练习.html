@@ -1,0 +1,248 @@
+<!DOCTYPE HTML>
+<html>
+	
+	<head>
+		<meta charset="UTF-8">
+		<title>五十音随机卡片练习</title>
+		<meta name = "viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		
+		<script type="text/javascript">
+    
+    (function(doc, win){
+        var docEl = doc.documentElement;
+        var resizeEvt = 'orientationchange' in win ? 'orientationchange' : 'resize';
+        var recalc = function(){
+            var width = docEl.clientWidth;
+            docEl.style.fontSize = 100 * (width / 640) + 'px';
+        };
+        recalc();
+        win.addEventListener(resizeEvt, recalc, false);
+    })(document, window);
+    </script>
+			
+		<style type="text/css">
+			html{font-family: 'Comic Sans MS'}
+			body{
+				margin: 0;
+				padding: 0;
+				background-color: #ffffff;
+			}
+			.canvas{
+				width: 100%;
+				box-sizing:border-box;
+			}
+			.content{
+				position:relative;
+				margin: .48rem auto .20rem auto;
+				width: 5rem;
+				height: 5.5rem;
+				background: #F0F8FF;
+				border-radius: 0.5rem;
+				font: bold;
+				font-size: 2.5rem;
+				font-family: "ヒラギノ角ゴ Pro W3", sans-serif；
+			
+			}
+			.voice{
+				opacity: 0;
+				position:relative;
+				width: 100%;
+				height: 85%;
+				border-radius: 0.5rem;
+				border:none;
+			}
+			.Hiragana,.Katakana,.Romaji{
+				position: absolute;
+				top: 50%;
+				left:50%;
+				transform:translate(-50%,-50%);
+				background: #F0F8FF;
+				border: none;
+				border-radius: 0.5rem;
+				font: bold;
+				color: #0498f4;
+				text-align: center;
+				}
+			.Romaji{
+					font-family: 'Comic Sans MS';
+				}
+			.hide{
+				display:none;
+			}
+            .but_h,.but_k,.but_r{
+	            display: block;
+	            background: gray;
+	            margin-left: 0.05rem;
+	            margin-bottom: 0.1rem;   
+	            border: none;
+	            position:relative;
+	            font-size: .3rem;
+	            color: #ffffff;
+	            width:1.6rem ;
+	            height: 1.5rem;
+	            border-radius: 0.5rem;
+	            float: left;
+	            font-family: "ヒラギノ角ゴ Pro W3", sans-serif；
+
+            }
+            .shadow{
+	            background: #6cbdf6;
+            }
+			
+			.next_button{
+				display: block;
+				width: 5rem;
+				height:1.5rem;
+				margin: auto;
+				padding: auto;
+				background: #0498f4;
+				font-size: .6rem;
+				color: #ffffff;
+				font:bold;
+				font-family: 'ヒラギノ角ゴ Pro W3';
+				border: 0;
+				border-radius: 0.5rem;
+				box-shadow: 0.3rem 0.3rem 0.4rem #999;
+			}
+			.next_button:active{
+				transform: translateX(0.2rem);
+				box-shadow: 0.1rem 0.1rem 0.2rem #999;
+				background:#1265db;
+			}
+			.author{
+				font-family: 'STKaiti';
+				text-align: center;
+				font:bold;
+				font-size: 0.3rem;
+				padding-top:1rem;
+				color: #726b6b;
+			}
+			
+			</style>
+	</head>
+	<body>
+		<div class="canvas">
+			<div class="content">
+				<div class="Hiragana hide"></div>
+				<div class="Katakana hide"></div>
+				<div class="Romaji hide"></div>
+				<button class="voice" ></button>
+				<button class="but_h shadow" onclick="h_button()">平仮名</button>
+			    <button class="but_k shadow" onclick="k_button()">片仮名</button>
+			    <button class="but_r shadow" onclick="r_button()">ローマ字</button>
+			</div>
+			
+			<button class="next_button" onclick="displayMain()">次へ</button>
+		</div>
+		<p class="author">我是水印(๑•̀ㅂ•́) ✧<br>汐亓古夬</p>
+		
+		<script type="text/javascript">
+			var hiragana = ["あ", "い", "う", "え", "お", "か", "き", "く", "け", "こ", "さ", "し", "す", "せ", "そ", "た", "ち", "つ", "て", "と", "な", "に", "ぬ", "ね", "の", "は", "ひ", "ふ", "へ", "ほ", "ま", "み", "む", "め", "も", "や", "ゆ", "よ", "ら", "り", "る", "れ", "ろ", "わ", "を", "ん"],
+				katakana = ["ア", "イ", "ウ", "エ", "オ", "カ", "キ", "ク", "ケ", "コ", "サ", "シ", "ス", "セ", "ソ", "タ", "チ", "ツ", "テ", "ト", "ナ", "ニ", "ヌ", "ネ", "ノ", "ハ", "ヒ", "フ", "ヘ", "ホ", "マ", "ミ", "ム", "メ", "モ", "ヤ", "ユ", "ヨ", "ラ", "リ", "ル", "レ", "ロ", "ワ", "ヲ", "ン"],
+				romaji = ['a','i','u','e','o','ka','ki','ku','ke','ko','sa','shi','su','se','so','ta','chi','tsu','te','to','na','ni','nu','ne','no','ha','hi','fu','he','ho','ma','mi','mu','me','mo','ya','yu','yo','ra','ri','ru','re','ro','wa','o','n'],
+				cHiragana=document.getElementsByClassName("Hiragana")[0],
+				cKatakana=document.getElementsByClassName("Katakana")[0],
+				cRomaji=document.getElementsByClassName("Romaji")[0],
+				cvoice=document.getElementsByClassName("voice")[0],
+				cnext_button=document.getElementsByClassName("next_button")[0],
+				cbut_h=document.getElementsByClassName("but_h")[0],
+				cbut_k=document.getElementsByClassName("but_k")[0],
+				cbut_r=document.getElementsByClassName("but_r")[0]; 
+				
+				var selectnumber = 0;
+				function hideDecision(number){
+					switch(number){
+					    case 0 :
+					    this.cHiragana.classList.remove("hide");
+					    if(!cKatakana.classList.contains("hide")){
+						    this.cKatakana.classList.add("hide");
+					    }
+					    if(!cRomaji.classList.contains("hide")){
+						    this.cRomaji.classList.add("hide");
+					    }
+					    break;
+					    case 1:
+					    this.cKatakana.classList.remove("hide");
+					    if(!cRomaji.classList.contains("hide")){
+						    this.cRomaji.classList.add("hide");
+					    }
+					    if(!cHiragana.classList.contains("hide")){
+						    this.cHiragana.classList.add("hide");
+					    }
+					    break;
+					    case 2:
+					    this.cRomaji.classList.remove("hide");
+					    if(!cHiragana.classList.contains("hide")){
+						    this.cHiragana.classList.add("hide");
+					    }
+					    if(!cKatakana.classList.contains("hide")){
+						    this.cKatakana.classList.add("hide");
+					    }
+					    break;
+				    }
+				}
+				function shadowDecision(number){
+					switch(number){
+						case 0:
+						this.cbut_h.classList.remove("shadow");
+						if(!cbut_k.classList.contains("shadow")){
+							this.cbut_k.classList.add("shadow");
+						}
+						if(!cbut_r.classList.contains("shadow")){
+							this.cbut_r.classList.add("shadow");
+						}
+						break;
+						case 1:
+						this.cbut_k.classList.remove("shadow");
+						if(!cbut_h.classList.contains("shadow")){
+							this.cbut_h.classList.add("shadow");
+						}
+						if(!cbut_r.classList.contains("shadow")){
+							this.cbut_r.classList.add("shadow");
+						}
+						break;
+						case 2:
+						this.cbut_r.classList.remove("shadow");
+						if(!cbut_h.classList.contains("shadow")){
+							this.cbut_h.classList.add("shadow");
+						}
+						if(!cbut_k.classList.contains("shadow")){
+							this.cbut_k.classList.add("shadow");
+						}
+						break;
+						
+					}
+				}
+				function displayMain(){
+					var index = Math.floor(Math.random() * this.hiragana.length);
+					this.selectnumber = Math.floor(Math.random()*3);
+					this.cHiragana.innerHTML = this.hiragana[index];
+				    this.cKatakana.innerHTML = this.katakana[index];
+				    this.cRomaji.innerHTML = this.romaji[index];
+				    hideDecision(selectnumber);
+				    shadowDecision(selectnumber);
+				}
+				
+				function h_button(){
+					this.selectnumber = 0;
+					shadowDecision(selectnumber);
+					hideDecision(selectnumber);
+				}
+				function k_button(){
+					this.selectnumber = 1;
+					shadowDecision(selectnumber);
+					hideDecision(selectnumber);
+				}
+				function r_button(){
+					this.selectnumber = 2;
+					shadowDecision(selectnumber);
+					hideDecision(selectnumber);
+				}
+				displayMain();
+				
+				   
+		</script>
+
+</body>
+	
+</html>
