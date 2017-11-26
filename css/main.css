@@ -1,0 +1,99 @@
+
+			html{font-family: 'Comic Sans MS'}
+			body{
+				margin: 0;
+				padding: 0;
+				background-color: #ffffff;
+			}
+			.canvas{
+				width: 100%;
+				box-sizing:border-box;
+			}
+			.content{
+				position:relative;
+				margin: .48rem auto .20rem auto;
+				width: 5rem;
+				height: 5.5rem;
+				background: #F0F8FF;
+				border-radius: 0.5rem;
+				font: bold;
+				font-size: 2.5rem;
+				font-family: "ヒラギノ角ゴ Pro W3", sans-serif；
+			
+			}
+			.voice{
+				opacity: 0;
+				position:relative;
+				width: 100%;
+				height: 85%;
+				border-radius: 0.5rem;
+				border:none;
+			}
+			.Hiragana,.Katakana,.Romaji{
+				position: absolute;
+				top: 50%;
+				left:50%;
+				transform:translate(-50%,-50%);
+				background: #F0F8FF;
+				border: none;
+				border-radius: 0.5rem;
+				font: bold;
+				color: #0498f4;
+				text-align: center;
+				}
+			.Romaji{
+					font-family: 'Comic Sans MS';
+				}
+			.hide{
+				display:none;
+			}
+            .but_h,.but_k,.but_r{
+	            display: block;
+	            background: gray;
+	            margin-left: 0.05rem;
+	            margin-bottom: 0.1rem;   
+	            border: none;
+	            position:relative;
+	            font-size: .3rem;
+	            color: #ffffff;
+	            width:1.6rem ;
+	            height: 1.5rem;
+	            border-radius: 0.5rem;
+	            float: left;
+	            font-family: "ヒラギノ角ゴ Pro W3", sans-serif；
+
+            }
+            .shadow{
+	            background: #6cbdf6;
+            }
+			
+			.next_button{
+				display: block;
+				width: 5rem;
+				height:1.5rem;
+				margin: auto;
+				padding: auto;
+				background: #0498f4;
+				font-size: .6rem;
+				color: #ffffff;
+				font:bold;
+				font-family: 'ヒラギノ角ゴ Pro W3';
+				border: 0;
+				border-radius: 0.5rem;
+				box-shadow: 0.3rem 0.3rem 0.4rem #999;
+			}
+			.next_button:active{
+				transform: translateX(0.2rem);
+				box-shadow: 0.1rem 0.1rem 0.2rem #999;
+				background:#1265db;
+			}
+			.author{
+				font-family: 'STKaiti';
+				text-align: center;
+				font:bold;
+				font-size: 0.3rem;
+				padding-top:1rem;
+				color: #726b6b;
+			}
+			
+	
