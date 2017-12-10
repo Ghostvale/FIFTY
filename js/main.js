@@ -9,9 +9,11 @@
 				cnext_button=document.getElementsByClassName("next_button")[0],
 				cbut_h=document.getElementsByClassName("but_h")[0],
 				cbut_k=document.getElementsByClassName("but_k")[0],
-				cbut_r=document.getElementsByClassName("but_r")[0]; 
+				cbut_r=document.getElementsByClassName("but_r")[0];
 				
+				var cvoice ="www.bing.com/translator/api/language/Speak?locale=ja-JP&gender=female&media=audio/mp3&text=" ;
 				var selectnumber = 0;
+				var index = 0;
 				function hideDecision(number){
 					switch(number){
 					    case 0 :
@@ -76,7 +78,7 @@
 					}
 				}
 				function displayMain(){
-					var index = Math.floor(Math.random() * this.hiragana.length);
+					this.index = Math.floor(Math.random() * this.hiragana.length);
 					this.selectnumber = Math.floor(Math.random()*3);
 					this.cHiragana.innerHTML = this.hiragana[index];
 				    this.cKatakana.innerHTML = this.katakana[index];
@@ -99,6 +101,12 @@
 					this.selectnumber = 2;
 					shadowDecision(selectnumber);
 					hideDecision(selectnumber);
+				}
+				function voice_button(){
+					var audio = document.createElement("audio");
+					audio.src = "https://m.hujiang.com/zt/jp/50yin/audio/" + hiragana[index] + ".mp3";
+					audio.play();
+					
 				}
 				displayMain();
 				
