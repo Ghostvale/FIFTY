@@ -27,11 +27,13 @@
 				<div class="Hiragana hide"></div>
 				<div class="Katakana hide"></div>
 				<div class="Romaji hide"></div>
-				<button class="voice" ></button>
+				<button class="voice" onclick="voice_button()"></button>
 				<button class="but_h shadow" onclick="h_button()">平仮名</button>
 			    <button class="but_k shadow" onclick="k_button()">片仮名</button>
 			    <button class="but_r shadow" onclick="r_button()">ローマ字</button>
-			</div>
+			    <input type="checkbox" class="first_checkbox" style="display: none">
+			    <input type="checkbox" class="second_checkbox"style="display: none">
+			    </div>
 			
 			<button class="next_button" onclick="displayMain()">次へ</button>
 		</div>
