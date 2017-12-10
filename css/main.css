@@ -1,5 +1,12 @@
 
 			html{font-family: 'Comic Sans MS'}
+			div,a,img{
+				-webkit-tap-highlight-color: transparent;
+				-webkit-touch-callout: none;
+				-webkit-user-select: none;
+				user-select:none;
+			}
+			
 			body{
 				margin: 0;
 				padding: 0;
